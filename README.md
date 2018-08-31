@@ -1,2 +1,2 @@
 # devops-workshop
-Hexlep devops workshop
+Hexlet devops workshop
