@@ -8,7 +8,10 @@ app-build:
 
 app-bash:
 	docker-compose run --user=$(USER) app bash 
-	
-app-deps:
+
+app-setup: app-build
 	docker-compose run app pip install -r requirements.txt
 	docker-compose run app pip install -r requirements.dev.txt
+
+app-test:
+	docker-compose run app python -m pytest
