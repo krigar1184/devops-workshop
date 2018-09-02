@@ -1,0 +1,27 @@
+---
+- hosts:
+    webservers
+  become: true
+  remote_user: root
+
+  tasks:
+    - name: run app
+      docker_container:
+        name: app
+        image: krigar1184/workshop-devops-app:stable
+        pull: yes
+        debug: yes
+        state: started
+        recreate: yes
+        detach: yes
+        ports:
+          - "5000:5000"
+
+    - name: run nginx
+      docker_container: 
+        name: nginx
+        image: krigar1184/workshop-devops-nginx:latest
+        debug: yes
+        state: started
+        detach: yes
+        recreate: yes

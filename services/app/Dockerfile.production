@@ -1,7 +1,7 @@
 FROM python:3.6
 ENV PROJECT_ROOT /usr/src/app
 WORKDIR $PROJECT_ROOT
-COPY .. $PROJECT_ROOT
+COPY . .
 
 
 RUN pip install -r requirements.txt
