@@ -1,3 +1,4 @@
 .env
 tmp
 ansible/production/group_vars/all/vars.yml
+*.retry
