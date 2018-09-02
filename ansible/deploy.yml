@@ -5,15 +5,29 @@
   remote_user: root
 
   tasks:
+    - name: create network
+      docker_network:
+        name: default_network
+
+    - name: download app image
+      docker_image:
+        name: krigar1184/workshop-devops-app:latest
+        force: yes
+
+    - name: download nginx image
+      docker_image:
+        name: krigar1184/workshop-devops-nginx:latest
+        force: yes
+
     - name: run app
       docker_container:
         name: app
-        image: krigar1184/workshop-devops-app:stable
-        pull: yes
-        debug: yes
-        state: started
+        image: krigar1184/workshop-devops-app:latest
+        restart_policy: always
         recreate: yes
-        detach: yes
+        state: started
+        networks:
+          - name: default_network
         ports:
           - "5000:5000"
 
@@ -21,7 +35,11 @@
       docker_container: 
         name: nginx
         image: krigar1184/workshop-devops-nginx:latest
-        debug: yes
         state: started
         detach: yes
+        restart_policy: always
         recreate: yes
+        networks:
+          - name: default_network
+        ports:
+          - "80:80"
