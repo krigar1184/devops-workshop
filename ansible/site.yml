@@ -1,0 +1,21 @@
+---
+- hosts: all
+
+  pre_tasks:
+    - apt:
+        update_cache: yes
+        name: "python3-pip"
+
+    - pip:
+        name: docker
+      become: yes
+
+  roles:
+    - role: geerlingguy.docker
+      become: yes
+
+  tasks:
+    - name: Create .env file from template
+      template:
+        src: environment.j2
+        dest: "{{ project_root }}/.env"
